@@ -35,5 +35,16 @@ void colorSwift (Pixel3* P, char wichOne, char howMuch)
     }
 }
 
+void afisPixel(Pixel3* P)
+{
+    unsigned int* a = malloc(sizeof(unsigned int)*3);
+    a[0] = a[1] = a[2] = 0;
+    *((char*)a+0) = P->r ;
+    *((char*)(a+1)) = P->g ;
+    *((char*)(a+2)) = P->b ;
+    //printf("( %u %u %u )",P->r,P->g,P->b);
+    printf("( %u %u %u )",a[0],a[1],a[2]);
+    free(a);
+}
 
 #endif ///PIXEL3_H

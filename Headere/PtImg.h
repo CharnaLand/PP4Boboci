@@ -85,7 +85,7 @@ void imgEdit(PtImg* img, char wichColor, char howMuch)
 {
     int i;
     for(i=0; i<img->dimImg; i++)
-        colorSwift(img->mareVector+i,wichColor,howMuch);
+        colorSwift(img->mareVector+i, wichColor, howMuch);
 }
 
 void rebuildImg (PtImg* img, char* newImg)
@@ -103,8 +103,6 @@ void rebuildImg (PtImg* img, char* newImg)
     {
         for (i=0; i< img->W; i++)
             scrPixel(img->mareVector + img->W * j + i, g);
-
-
 
         for(i=0; i<img->dimPadding; i++)
             scrPixel(&gol,g);

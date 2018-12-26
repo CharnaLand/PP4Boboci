@@ -8,10 +8,13 @@ int main()
 {
 PtImg pozaMea;
 
-deschFisier(&pozaMea,"unSteag.bmp");
+deschFisier(&pozaMea,"puppy.bmp");
 prelTitlu(&pozaMea);
 
 citireVector(&pozaMea);
+imgEdit(&pozaMea,'R',150);
+imgEdit(&pozaMea,'G',150);
+imgEdit(&pozaMea,'B',150);
 rebuildImg(&pozaMea,"zAltaPoza.bmp");
 
 destroyElm(&pozaMea);
