@@ -63,16 +63,16 @@ void prelTitlu(PtImg* img)
 
 
 
-void citireVector (PtImg* P)
+void citireVector (PtImg* img)
 {
-    P->mareVector = (Pixel3*)malloc(sizeof(Pixel3) * P->dimImg);
+    img->mareVector = (Pixel3*)malloc(sizeof(Pixel3) * img->dimImg);
     int i,j;
-    for(j =0; j< P->H; j++)
+    for(j =0; j< img->H; j++)
     {
-        for(i = 0; i< P->W; i++)
-            citPixel(P->mareVector+P->W*j+i,P->f);
+        for(i = 0; i< img->W; i++)
+            citPixel(img->mareVector + img->W * j + i, img->f);
 
-        citPadding(P);
+        citPadding(img);
     }
 }
 
@@ -81,6 +81,38 @@ void afisDetalii(PtImg *img)
         printf("\nIntaltimea : %d\nLungimea : %d\nMarimea : %d\n",img->H,img->W,img->dimImg);
 }
 
+void imgEdit(PtImg* img, char wichColor, char howMuch)
+{
+    int i;
+    for(i=0; i<img->dimImg; i++)
+        colorSwift(img->mareVector+i,wichColor,howMuch);
+}
+
+void rebuildImg (PtImg* img, char* newImg)
+{
+    FILE* g = fopen(newImg,"wb+");
+    Pixel3 gol;
+    gol.r = 0;
+    gol.g = 0;
+    gol.b = 0;
+
+    fwrite(img->titlu,54,1,g);
+    fwrite(&gol.r,S_CHAR,2,g);
+    int i,j;
+    for(j=0; j<img->H; j++)
+    {
+        for (i=0; i< img->W; i++)
+            scrPixel(img->mareVector + img->W * j + i, g);
+
+
+
+        for(i=0; i<img->dimPadding; i++)
+            scrPixel(&gol,g);
+    }
+    fclose(g);
+}
+
+
 void destroyElm(PtImg* img)
 {
     fclose (img->f);
@@ -88,5 +120,7 @@ void destroyElm(PtImg* img)
     free ( img->titlu );
     ///AM DISTRUS VARIABILELE GLOBALE
 }
+
+
 
 #endif ///PT_IMG_H
